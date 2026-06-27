@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Games — Curated Game Library</title>
+  <meta name="description" content="A curated list of games for our Discord server. Browse covers, find something to play tonight.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: #0f0f0f;
+      color: #e8e8ec;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      padding: 2rem 1.5rem 1rem;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .site-header h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #e8e8ec;
+    }
+
+    .site-header .tagline {
+      font-size: 0.82rem;
+      color: #8a8a96;
+      margin-top: 0.25rem;
+      font-weight: 400;
+    }
+
+    /* ===== GAME GRID ===== */
+    .game-grid {
+      flex: 1;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      align-content: start;
+    }
+
+    @media (min-width: 540px) {
+      .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 820px) {
+      .game-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.4rem;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .game-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    @media (min-width: 1380px) {
+      .game-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    /* ===== CARD ===== */
+    .game-card {
+      background: #1a1a1f;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      outline-offset: 2px;
+    }
+
+    .game-card:hover,
+    .game-card:focus-within {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Cover image wrapper — portrait ratio (3:4) */
+    .card-cover {
+      position: relative;
+      width: 100%;
+      padding-top: 133.33%; /* 3:4 aspect ratio */
+      overflow: hidden;
+      background: #15151a;
+    }
+
+    .card-cover img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.25s ease;
+      filter: brightness(0.88);
+    }
+
+    .game-card:hover .card-cover img,
+    .game-card:focus-within .card-cover img {
+      filter: brightness(1);
+    }
+
+    /* Fallback placeholder when no cover image */
+    .card-cover .cover-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #5a5a66;
+      background: linear-gradient(145deg, #15151a 0%, #1e1e26 100%);
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 0.75rem 0.85rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #e8e8ec;
+      line-height: 1.3;
+    }
+
+    .card-summary {
+      font-size: 0.76rem;
+      color: #8a8a96;
+      line-height: 1.45;
+      margin-top: 0.35rem;
+      flex: 1;
+    }
+
+    .card-steam {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #3d6ea5;
+      text-decoration: none;
+      transition: color 0.15s ease;
+      align-self: flex-start;
+    }
+
+    .card-steam:hover,
+    .card-steam:focus {
+      color: #6a9fd8;
+      outline: none;
+    }
+
+    .card-steam svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: #4a4a54;
+      letter-spacing: 0.01em;
+    }
+
+    /* ===== FOCUS STYLES (accessibility) ===== */
+    .game-card:focus-within {
+      outline: 2px solid #3d6ea5;
+    }
+
+    .card-steam:focus-visible {
+      outline: 2px solid #3d6ea5;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Server Games</h1>
+    <p class="tagline">Games worth playing together</p>
+  </header>
+
+  <main class="game-grid" id="game-grid" role="list">
+    <!-- Cards rendered by JS -->
+  </main>
+
+  <footer class="site-footer">
+    Made for Server Games &middot; Last updated June 2026
+  </footer>
+
+  <script>
+    // =====================================================
+    // GAME DATA — edit this array to add or remove games
+    // =====================================================
+    const games = [
+      {
+        title: "LOCKDOWN Protocol",
+        summary: "Co-op extraction shooter in procedural sci-fi facilities. Grab loot, avoid the security system, and get out before lockdown hits.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2780980/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/2780980"
+      },
+      {
+        title: "Tricky Towers",
+        summary: "Competitive physics-based Tetris with magic spells. Stack blocks, sabotage friends, watch towers crumble.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/437920/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/437920"
+      },
+      {
+        title: "Storebound",
+        summary: "Run a convenience store with friends in this chaotic co-op sim. Stock shelves, serve customers, try not to go bankrupt.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3417410/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/3417410"
+      },
+      {
+        title: "Lethal Company",
+        summary: "Scavenge abandoned moons for scrap to meet profit quotas. The monsters inside are the least of your worries.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1966720/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/1966720"
+      },
+      {
+        title: "Content Warning",
+        summary: "Film spooky viral videos in the underground with your crew. The scarier the footage, the more views you get.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2881650/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/2881650"
+      },
+      {
+        title: "PICO PARK",
+        summary: "Minimalist co-op puzzle platformer for up to 8 players. Simple controls, maximum chaos, friendships tested.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1509960/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/1509960"
+      },
+      {
+        title: "Escape the Backrooms",
+        summary: "Navigate the endless liminal spaces of the Backrooms with your team. Don't get lost. Don't get caught.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1943950/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/1943950"
+      },
+      {
+        title: "Tabletop Simulator",
+        summary: "Play any board game, card game, or tabletop RPG online. If it exists on a table, it's probably in here.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/286160/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/286160"
+      },
+      {
+        title: "PlateUp!",
+        summary: "Roguelike restaurant management where you build, cook, and serve under pressure. Automate or die trying.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599600/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/1599600"
+      },
+      {
+        title: "Supermarket Together",
+        summary: "Build and run a supermarket with friends. Restock, expand, deal with customers, and try to keep things under control.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2709570/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/2709570"
+      },
+      {
+        title: "Viscera Cleanup Detail",
+        summary: "You're the janitor after the action hero leaves. Mop blood, pick up body parts, and clock out. Co-op janitorial horror.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/246900/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/246900"
+      },
+      {
+        title: "Russian Fishing 4",
+        summary: "Realistic online fishing sim with beautiful locations. Surprisingly relaxing — until someone catches a bigger fish.",
+        cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/766570/library_600x900.jpg",
+        steam: "https://store.steampowered.com/app/766570"
+      }
+    ];
+
+    // =====================================================
+    // RENDER
+    // =====================================================
+    const grid = document.getElementById('game-grid');
+
+    const steamIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+
+    games.forEach(game => {
+      const card = document.createElement('article');
+      card.className = 'game-card';
+      card.setAttribute('role', 'listitem');
+
+      const coverContent = game.cover
+        ? `<img src="${game.cover}" alt="Cover art for ${game.title}" loading="lazy">`
+        : `<div class="cover-placeholder" aria-hidden="true">${game.title}</div>`;
+
+      const steamLink = game.steam
+        ? `<a class="card-steam" href="${game.steam}" target="_blank" rel="noopener noreferrer">View on Steam ${steamIcon}</a>`
+        : '';
+
+      card.innerHTML = `
+        <div class="card-cover">${coverContent}</div>
+        <div class="card-body">
+          <h2 class="card-title">${game.title}</h2>
+          <p class="card-summary">${game.summary}</p>
+          ${steamLink}
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
