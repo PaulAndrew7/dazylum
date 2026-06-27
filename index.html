@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Server Games — Curated Game Library</title>
-  <meta name="description" content="A curated list of games for our Discord server. Browse covers, find something to play tonight.">
+  <meta name="description"
+    content="A curated list of games for our Discord server. Browse covers, find something to play tonight.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* ===== RESET & BASE ===== */
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -114,7 +118,8 @@
     .card-cover {
       position: relative;
       width: 100%;
-      padding-top: 133.33%; /* 3:4 aspect ratio */
+      padding-top: 133.33%;
+      /* 3:4 aspect ratio */
       overflow: hidden;
       background: #15151a;
     }
@@ -219,20 +224,17 @@
     }
   </style>
 </head>
+
 <body>
 
   <header class="site-header">
-    <h1>Server Games</h1>
-    <p class="tagline">Games worth playing together</p>
+    <h1>dazylum games</h1>
   </header>
 
   <main class="game-grid" id="game-grid" role="list">
     <!-- Cards rendered by JS -->
   </main>
 
-  <footer class="site-footer">
-    Made for Server Games &middot; Last updated June 2026
-  </footer>
 
   <script>
     // =====================================================
@@ -347,4 +349,5 @@
   </script>
 
 </body>
+
 </html>
